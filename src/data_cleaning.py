@@ -8,7 +8,7 @@ class DataFrameCleaner:
 
     def drop_na(self):
         """Drops rows with NaN values in specific columns."""
-        #self.df = self.df.dropna(subset=["Average_Income_Per_Citizen"])
+        # self.df = self.df.dropna(subset=["Average_Income_Per_Citizen"])
         return self
 
     def drop_duplicates(self):
@@ -36,7 +36,7 @@ class DataFrameCleaner:
         self.df.drop(["service_flat"], axis=1, inplace=True)
         self.df.drop(["chalet"], axis=1, inplace=True)
         self.df.drop(["locality"], axis=1, inplace=True)
-        #self.df.drop(['province'], axis=1, inplace=True)
+        # self.df.drop(['province'], axis=1, inplace=True)
         self.df.drop(["CD_MUNTY_REFNIS"], axis=1, inplace=True)
         self.df.drop(["pool"], axis=1, inplace=True)
         self.df.drop(["municipality_code"], axis=1, inplace=True)

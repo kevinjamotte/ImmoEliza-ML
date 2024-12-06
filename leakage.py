@@ -17,27 +17,31 @@ logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
+
 class DataLoader:
     def __init__(self, dataset_path, income_mun_path):
         self.dataset_path = dataset_path
         self.income_mun_path = income_mun_path
-        
+
     def load(self):
         """Loads datasets from the specified paths."""
         try:
             df = pd.read_csv(self.dataset_path)
             df_income = pd.read_csv(self.income_mun_path)
-            logging.info(f"Data loaded successfully from {self.dataset_path} and {self.income_mun_path}")
+            logging.info(
+                f"Data loaded successfully from {self.dataset_path} and {self.income_mun_path}"
+            )
             return df, df_income
         except Exception as e:
             logging.error(f"Error loading data: {e}")
             raise
 
+
 class DataPreProcessor:
     def __init__(self, df, df_income):
         self.df = df
         self.df_income = df_income
-        
+
     def preprocess(self):
         """Applies all preprocessing steps."""
         logging.info("Starting preprocessing...")
@@ -59,11 +63,16 @@ class DataPreProcessor:
         self.df = cleaner.clean()
 
         # Remove outliers using Z-score
-        zscore_filter = ZScoreFilter(self.df, columns=["price", "livingarea"], threshold=3)
+        zscore_filter = ZScoreFilter(
+            self.df, columns=["price", "livingarea"], threshold=3
+        )
         self.df = zscore_filter.filter()
 
-        logging.info(f"Data preprocessing completed: {self.df.shape[0]} rows, {self.df.shape[1]} columns")
+        logging.info(
+            f"Data preprocessing completed: {self.df.shape[0]} rows, {self.df.shape[1]} columns"
+        )
         return self.df
+
 
 class ModelTrainer:
     def __init__(self, X_train, X_test, y_train, y_test):
@@ -71,7 +80,7 @@ class ModelTrainer:
         self.X_test = X_test
         self.y_train = y_train
         self.y_test = y_test
-        
+
     def train_and_evaluate(self, model, model_name):
         """Trains and evaluates the model."""
         logging.info(f"Training {model_name} model...")
@@ -83,7 +92,7 @@ class ModelTrainer:
             X_train=self.X_train,
             X_test=self.X_test,
             y_train=self.y_train,
-            y_test=self.y_test
+            y_test=self.y_test,
         )
         evaluator.print_metrics()
 
@@ -94,12 +103,14 @@ class FeatureImportanceVisualizer:
     def __init__(self, model, feature_names):
         self.model = model
         self.feature_names = feature_names
-        
+
     def plot(self):
         """Visualizes feature importances."""
         feature_importances = self.model.feature_importances_
         important_features = sorted(
-            zip(self.feature_names, feature_importances), key=lambda x: x[1], reverse=True
+            zip(self.feature_names, feature_importances),
+            key=lambda x: x[1],
+            reverse=True,
         )
 
         # Visualizing Feature Importances
@@ -113,11 +124,12 @@ class FeatureImportanceVisualizer:
         plt.ylabel("Feature")
         plt.show()
 
+
 class MainWorkflow:
     def __init__(self, dataset_path, income_mun_path):
         self.dataset_path = dataset_path
         self.income_mun_path = income_mun_path
-        
+
     def execute(self):
         """Executes the entire workflow."""
         # Step 1: Load data
@@ -145,26 +157,35 @@ class MainWorkflow:
             "n_estimators": 300,
         }
         best_params_decisiontree = {
-            'criterion': 'friedman_mse', 
-            'max_depth': 30, 
-            'max_features': None, 
-            'min_samples_leaf': 1, 
-            'min_samples_split': 2, 
-            'splitter': 'best'
+            "criterion": "friedman_mse",
+            "max_depth": 30,
+            "max_features": None,
+            "min_samples_leaf": 1,
+            "min_samples_split": 2,
+            "splitter": "best",
         }
 
-        model_randomforest = RandomForestRegressor(**best_params_randomforest, random_state=42)
-        model_decisiontree = DecisionTreeRegressor(**best_params_decisiontree, random_state=42)
+        model_randomforest = RandomForestRegressor(
+            **best_params_randomforest, random_state=42
+        )
+        model_decisiontree = DecisionTreeRegressor(
+            **best_params_decisiontree, random_state=42
+        )
 
         # Step 5: Train and evaluate models
         trainer = ModelTrainer(X_train, X_test, y_train, y_test)
-        
-        model_randomforest = trainer.train_and_evaluate(model_randomforest, "RandomForest")
-        model_decisiontree = trainer.train_and_evaluate(model_decisiontree, "DecisionTree")
+
+        model_randomforest = trainer.train_and_evaluate(
+            model_randomforest, "RandomForest"
+        )
+        model_decisiontree = trainer.train_and_evaluate(
+            model_decisiontree, "DecisionTree"
+        )
 
         # Step 6: Visualize feature importances
         visualizer = FeatureImportanceVisualizer(model_randomforest, X_train.columns)
         visualizer.plot()
+
 
 if __name__ == "__main__":
     # File paths

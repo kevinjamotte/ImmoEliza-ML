@@ -1,3 +1,7 @@
+It seems like you're facing an issue with the formatting in the markdown. I'll correct the indentation and ensure that the bash commands for installation are clear and properly formatted.
+
+Here's the corrected version:
+
 ```markdown
 # Real Estate Price Prediction Workflow
 
@@ -23,7 +27,7 @@ This project is a machine learning pipeline for predicting real estate prices us
 
 ## Overview
 This workflow processes raw real estate data, cleans and preprocesses it, trains machine learning models (Random Forest and Decision Tree regressors), evaluates their performance, and visualizes feature importances. The workflow is designed to be modular, allowing for easy integration of additional steps or models.
-
+``` 
 ---
 
 ## Installation
@@ -88,7 +92,7 @@ df, df_income = loader.load()
 The `DataPreProcessor` class cleans and enriches the dataset with several steps:
 1. Adds additional features using average income per municipality data.
 2. Filters by postal codes.
-3. Applies one-hot encoding for categorical features. 
+3. Applies one-hot encoding for categorical features.
 4. Cleans the dataset using custom rules.
 5. Removes outliers based on Z-scores.
 
@@ -131,7 +135,7 @@ visualizer.plot()
 
 2. Run the script:
    ```bash
-   python main.py
+   python main_oop.py
    ```
 
 ---
@@ -192,7 +196,7 @@ Example:
 
 ## Future Improvements
 1. **Hyperparameter Tuning**:
-   Integrate tools like GridSearchCV for optimized model parameters.
+   Integrate tools like GridSearchCV for optimized model parameters everytime the model is launched.
 2. **Model Comparison**:
    Add more regressors for comparison.
 3. **Pipeline Automation**:
@@ -203,3 +207,4 @@ Example:
 ---
 
 Feel free to contribute or report issues! 😊
+```
