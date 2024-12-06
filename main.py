@@ -94,8 +94,8 @@ def plot_feature_importances(model, X_train):
 
 # Main function to execute the workflow
 def main():
-    # File paths (could be passed as arguments or loaded from a config file)
-    dataset_path = "./data/raw/dataset_province_municipality_code_large4.csv"
+    # File paths
+    dataset_path = "./data/raw/dataset_province_municipality_code_large.csv"
     income_mun_path = "./data/raw/income_municipality.csv"
 
     # Step 1: Load data
