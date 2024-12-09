@@ -91,6 +91,7 @@ class ModelEvaluation:
         ) = self.calculate_metrics()
 
         metrics_message = (
+            f"\n"
             f"Metrics for {self.model}:\n\n"
             f"Test Metrics:\n"
             f"- Mean Squared Error (MSE): {mse_test:.2f}\n"

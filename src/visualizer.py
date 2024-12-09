@@ -82,7 +82,6 @@ class LearningCurve:
         plt.grid()
         plt.savefig(f"LearningCurve_{type(self.model).__name__}.png")
         plt.show()
-        logging.info("Learning curve plotted.")
 
 
 class PredictionVsActualPlotter:

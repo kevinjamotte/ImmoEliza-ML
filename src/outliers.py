@@ -29,7 +29,7 @@ class ZScoreFilter:
         # Filter rows based on the threshold
         self.df = self.df[(z_scores < self.threshold).all(axis=1)]
 
-        print(f"DataFrame aftr ZSCORE: {self.df.shape}")
+        print(f"DataFrame after ZSCORE: {self.df.shape}")
         return self.df
 
     def update_threshold(self, new_threshold: float) -> None:

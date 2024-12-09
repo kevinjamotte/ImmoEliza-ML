@@ -146,9 +146,8 @@ class ModelTrainer:
         evaluator = ModelEvaluation(
             model, self.X_train, self.X_test, self.y_train, self.y_test
         )
-        print("Calling evaluator.print_metrics()...")
+
         evaluator.print_metrics()
-        print("Finished calling evaluator.print_metrics()...")
 
         return model
 
@@ -249,6 +248,9 @@ class MainWorkflow:
             model_randomforest, X_test
         )
         predicted_price_plotter_decisiontree.plot()
+
+        # Step 7 goodbye =)
+        logging.info("Process is over, thanks for waiting!")
 
 
 if __name__ == "__main__":
