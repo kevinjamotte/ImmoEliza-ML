@@ -1,7 +1,3 @@
-It seems like you're facing an issue with the formatting in the markdown. I'll correct the indentation and ensure that the bash commands for installation are clear and properly formatted.
-
-Here's the corrected version:
-
 ```markdown
 # Real Estate Price Prediction Workflow
 

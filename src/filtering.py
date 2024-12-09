@@ -2,14 +2,14 @@ import pandas as pd
 
 
 class One_Hot:
-    def __init__(self, df, column_name):
+    def __init__(self, df: pd.DataFrame, column_name: str) -> None:
         """
         Initializes the One Hot encoder
         """
         self.df = df
         self.column_name = column_name
 
-    def one_hot_encoder(self):
+    def one_hot_encoder(self) -> pd.DataFrame:
         """
         Creates different columns for each value.
         """
@@ -18,14 +18,14 @@ class One_Hot:
 
 
 class Postal_Filtering:
-    def __init__(self, df, x):
+    def __init__(self, df: pd.DataFrame, x: int):
         """
         Initializes the filter.
         """
         self.df = df
         self.x = x
 
-    def postal_filtering(self):
+    def postal_filtering(self) -> pd.DataFrame:
         """
         Filters postcode with more than X properties.
         """

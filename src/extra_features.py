@@ -1,12 +1,15 @@
+import pandas as pd
+
+
 class Income_Municipality:
-    def __init__(self, df, df_income):
+    def __init__(self, df: pd.DataFrame, df_income: pd.DataFrame) -> pd.DataFrame:
         """
         Initializes the extra feature with a DataFrame.
         """
         self.df = df
         self.df_income = df_income
 
-    def add_feature(self):
+    def add_feature(self) -> None:
         """Merges self.df with self.df_income to add the 'Average_Income_Per_Citizen' feature."""
 
         self.df = self.df.merge(
