@@ -1,9 +1,9 @@
 # model_evaluation.py (module)
 from sklearn.base import BaseEstimator
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+from sklearn.model_selection import cross_val_score
 import numpy as np
 import pandas as pd
-
 
 
 class ModelEvaluation:
@@ -71,10 +71,34 @@ class ModelEvaluation:
             * 100
         )
 
+    def cross_eval(self) -> dict:
+        """
+        Performs cross-validation on the provided data and calculates the average RMSE, MAE, and R2 scores.
+        :return: Dictionary of metrics from cross-validation.
+        """
+        # Perform cross-validation for R2, MAE, RMSE
+        r2_scores = cross_val_score(self.model, self.X_train, self.y_train, cv=5, scoring='r2')
+        mae_scores = -cross_val_score(self.model, self.X_train, self.y_train, cv=5, scoring='neg_mean_absolute_error')
+        rmse_scores = np.sqrt(-cross_val_score(self.model, self.X_train, self.y_train, cv=5, scoring='neg_mean_squared_error'))
+
+        # Calculate averages
+        avg_r2 = np.mean(r2_scores)
+        avg_mae = np.mean(mae_scores)
+        avg_rmse = np.mean(rmse_scores)
+
+        # Return as dictionary
+        return {
+            "R2": avg_r2,
+            "MAE": avg_mae,
+            "RMSE": avg_rmse,
+        }
+
     def print_metrics(self) -> None:
         """
-        Prints out the metrics for MSE, RMSE, R2, MAE, MAPE, and sMAPE for both test and training datasets.
+        Prints out the metrics for MSE, RMSE, R2, MAE, MAPE, and sMAPE for both test and training datasets
+        along with cross-validation metrics.
         """
+        # Get calculated metrics
         (
             mse_test,
             rmse_test,
@@ -90,6 +114,10 @@ class ModelEvaluation:
             mape_train,
         ) = self.calculate_metrics()
 
+        # Perform cross-validation
+        cross_val_metrics = self.cross_eval()
+
+        # Print metrics message
         metrics_message = (
             f"\n"
             f"Metrics for {self.model}:\n\n"
@@ -106,7 +134,11 @@ class ModelEvaluation:
             f"- R-squared: {r2_train:.2f}\n"
             f"- Mean Absolute Error (MAE): {mae_train:.2f}\n"
             f"- Mean Absolute Percentage Error (MAPE): {mape_train:.2f}%\n"
-            f"- Symmetric Mean Absolute Percentage Error (sMAPE): {smape_train:.2f}%"
+            f"- Symmetric Mean Absolute Percentage Error (sMAPE): {smape_train:.2f}%\n\n"
+            f"Cross-Validation Metrics (5-Fold):\n"
+            f"- Average R-squared (R2): {cross_val_metrics['R2']:.2f}\n"
+            f"- Average Mean Absolute Error (MAE): {cross_val_metrics['MAE']:.2f}\n"
+            f"- Average Root Mean Squared Error (RMSE): {cross_val_metrics['RMSE']:.2f}"
         )
 
         print(metrics_message)
