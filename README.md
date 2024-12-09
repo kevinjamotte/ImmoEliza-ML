@@ -86,6 +86,7 @@ This project depends on the following libraries:
 - `pandas`
 - `scikit-learn`
 - `matplotlib`
+- `seaborn`
 - `logging`
 
 Add these dependencies in the `requirements.txt` file:
@@ -94,6 +95,8 @@ Add these dependencies in the `requirements.txt` file:
 pandas
 scikit-learn
 matplotlib
+seaborn
+scipy
 ```
 
 ---
