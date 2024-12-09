@@ -1,69 +1,70 @@
+import pandas as pd
+from pandas import DataFrame
+
 class DataFrameCleaner:
-    def __init__(self, df):
+    """
+    A utility class for cleaning pandas DataFrames. This includes removing duplicates, 
+    dropping unnecessary columns, and handling NaN values.
+    """
+    
+    def __init__(self, df: pd.DataFrame) -> None:
         """
         Initializes the cleaner with a DataFrame.
+
+        :param df: A pandas DataFrame to be cleaned.
         """
-        self.df = df
+        self.df: pd.DataFrame = df
         print(f"DataFrame before cleaning: {self.df.shape}")
 
-    def drop_duplicates(self):
+    def drop_duplicates(self) -> pd.DataFrame:
         """
-        Drops duplicate rows.
+        Drops duplicate rows in the DataFrame.
+
+        :return: The DataFrameCleaner instance with duplicates removed.
         """
         self.df = self.df.drop_duplicates()
         return self
 
-    def drop_columns(self):
+    def drop_columns(self) -> pd.DataFrame:
         """
-        Drops unnecessary columns, 1 line per column allows easy visualisation and feature tuning.
-        """
-        self.df.drop(["price_sqm"], axis=1, inplace=True)
-        self.df.drop(["Unnamed: 0"], axis=1, inplace=True)
-        self.df.drop(["Unnamed: 0.1"], axis=1, inplace=True)
-        self.df.drop(["Unnamed: 0.2"], axis=1, inplace=True)
-        self.df.drop(["Unnamed: 0.3"], axis=1, inplace=True)
-        self.df.drop(["Unnamed: 0.4"], axis=1, inplace=True)
-        self.df.drop(["kot"], axis=1, inplace=True)
-        self.df.drop(["loft"], axis=1, inplace=True)
-        self.df.drop(["apartment_block"], axis=1, inplace=True)
-        self.df.drop(["ground_floor"], axis=1, inplace=True)
-        self.df.drop(["country_cottage"], axis=1, inplace=True)
-        self.df.drop(["mansion"], axis=1, inplace=True)
-        self.df.drop(["penthouse"], axis=1, inplace=True)
-        self.df.drop(["exceptional_property"], axis=1, inplace=True)
-        self.df.drop(["manor_house"], axis=1, inplace=True)
-        self.df.drop(["service_flat"], axis=1, inplace=True)
-        self.df.drop(["chalet"], axis=1, inplace=True)
-        self.df.drop(["locality"], axis=1, inplace=True)
-        # self.df.drop(['province'], axis=1, inplace=True)
-        self.df.drop(["CD_MUNTY_REFNIS"], axis=1, inplace=True)
-        self.df.drop(["pool"], axis=1, inplace=True)
-        self.df.drop(["municipality_code"], axis=1, inplace=True)
-        self.df.drop(["fireplace"], axis=1, inplace=True)
-        self.df.drop(["furnished"], axis=1, inplace=True)
-        self.df.drop(["postal_code"], axis=1, inplace=True)
-        # self.df.drop(["terrace"], axis=1, inplace=True)
-        self.df.drop(["garden"], axis=1, inplace=True)
-        # self.df.drop(['to_restore'], axis=1, inplace=True)
-        # self.df.drop(['to_renovate'], axis=1, inplace=True)
-        # self.df.drop(['to_be_done_up'], axis=1, inplace=True)
-        # self.df.drop(['kitchen'], axis=1, inplace=True)
-        # self.df.drop(['is_house'], axis=1, inplace=True)
-        # elf.df.drop(['is_apartment'], axis=1, inplace=True)
-        # self.df.drop(['just_renovated'], axis=1, inplace=True)
-        # self.df.drop(['good'], axis=1, inplace=True)
-        # self.df.drop(['facades'], axis=1, inplace=True)
+        Drops predefined unnecessary columns from the DataFrame.
+        Each column is dropped in a single line for easier maintenance.
 
+        :return: The DataFrameCleaner instance with specified columns removed.
+        """
+        columns_to_drop = [
+            "price_sqm", "Unnamed: 0", "Unnamed: 0.1", "Unnamed: 0.2", "Unnamed: 0.3",
+            "Unnamed: 0.4", "kot", "loft", "apartment_block", "ground_floor",
+            "country_cottage", "mansion", "penthouse", "exceptional_property",
+            "manor_house", "service_flat", "chalet", "locality", "CD_MUNTY_REFNIS",
+            "pool", "municipality_code", "fireplace", "furnished", "postal_code", 
+            "garden"
+        ]
+        
+        # Uncomment lines below to optionally drop additional columns
+        # "province", "terrace", "to_restore", "to_renovate", "to_be_done_up",
+        # "kitchen", "is_house", "is_apartment", "just_renovated", "good", "facades"
+
+        self.df.drop(columns=columns_to_drop, axis=1, inplace=True, errors='ignore')
         return self
 
-    def drop_na(self):
+    def drop_na(self) -> pd.DataFrame:
         """
-        Drops rows with NaN values in specific columns.
+        Drops rows with NaN values in the DataFrame.
+
+        :return: The DataFrameCleaner instance with NaN rows removed.
         """
         self.df = self.df.dropna()
         print(f"DataFrame after cleaning: {self.df.shape}")
         return self
 
-    def clean(self):
-        """Executes the entire cleaning process."""
+    def clean(self) -> pd.DataFrame:
+        """
+        Executes the complete cleaning process, which includes:
+        - Removing duplicate rows.
+        - Dropping unnecessary columns.
+        - Dropping rows with NaN values.
+
+        :return: The cleaned pandas DataFrame.
+        """
         return self.drop_duplicates().drop_columns().drop_na().df

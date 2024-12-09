@@ -10,8 +10,9 @@ class Income_Municipality:
         self.df_income = df_income
 
     def add_feature(self) -> None:
-        """Merges self.df with self.df_income to add the 'Average_Income_Per_Citizen' feature."""
-
+        """
+        Merges self.df with self.df_income to add the 'Average_Income_Per_Citizen' feature.
+        """
         self.df = self.df.merge(
             self.df_income[["CD_MUNTY_REFNIS", "Average_Income_Per_Citizen"]],
             left_on="municipality_code",

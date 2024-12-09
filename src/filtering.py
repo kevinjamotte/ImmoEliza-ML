@@ -18,7 +18,7 @@ class One_Hot:
 
 
 class Postal_Filtering:
-    def __init__(self, df: pd.DataFrame, x: int):
+    def __init__(self, df: pd.DataFrame, x: int) -> None:
         """
         Initializes the filter.
         """
@@ -42,14 +42,14 @@ class Postal_Filtering:
 
 
 class BedroomsFiltering:
-    def __init__(self, df, x):
+    def __init__(self, df: pd.DataFrame, x: int) -> None:
         """
         Initializes the filter.
         """
         self.df = df
         self.x = x
 
-    def bedrooms_filtering(self):
+    def bedrooms_filtering(self) -> pd.DataFrame:
         self.df = self.df[self.df["bedrooms"] < self.x]
 
         return self.df

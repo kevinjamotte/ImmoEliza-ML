@@ -1,12 +1,14 @@
 # model_evaluation.py (module)
-
+from sklearn.base import BaseEstimator
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 import numpy as np
+import pandas as pd
+
 
 
 class ModelEvaluation:
-    def __init__(self, model, X_train, X_test, y_train, y_test):
-        """
+    def __init__(self, model: BaseEstimator, X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.DataFrame, y_test: pd.DataFrame) -> None:
+        """ 
         Initializes the ModelEvaluation object with model, training data, and test data.
         """
         self.model = model
@@ -19,7 +21,7 @@ class ModelEvaluation:
         self.y_train_pred = model.predict(X_train)
         self.y_test_pred = model.predict(X_test)
 
-    def calculate_metrics(self):
+    def calculate_metrics(self) -> float:
         """
         Calculates MSE, RMSE, R2, MAE, MAPE, and sMAPE for the model on both training and test data.
         """
@@ -54,13 +56,13 @@ class ModelEvaluation:
             mape_train,
         )
 
-    def mape(self, y_true, y_pred):
+    def mape(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
         """
         Calculates Mean Absolute Percentage Error (MAPE).
         """
         return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
 
-    def smape(self, y_true, y_pred):
+    def smape(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
         """
         Calculates Symmetric Mean Absolute Percentage Error (sMAPE).
         """
@@ -69,7 +71,7 @@ class ModelEvaluation:
             * 100
         )
 
-    def print_metrics(self):
+    def print_metrics(self) -> None:
         """
         Prints out the metrics for MSE, RMSE, R2, MAE, MAPE, and sMAPE for both test and training datasets.
         """
