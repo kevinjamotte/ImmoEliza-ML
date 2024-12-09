@@ -39,3 +39,17 @@ class Postal_Filtering:
         print(f"DataFrame after filtering: {self.df.shape}")
 
         return self.df
+
+
+class BedroomsFiltering:
+    def __init__(self, df, x):
+        """
+        Initializes the filter.
+        """
+        self.df = df
+        self.x = x
+
+    def bedrooms_filtering(self):
+        self.df = self.df[self.df["bedrooms"] < self.x]
+
+        return self.df

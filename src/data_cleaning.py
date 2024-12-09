@@ -6,18 +6,17 @@ class DataFrameCleaner:
         self.df = df
         print(f"DataFrame before cleaning: {self.df.shape}")
 
-    def drop_na(self):
-        """Drops rows with NaN values in specific columns."""
-        # self.df = self.df.dropna(subset=["Average_Income_Per_Citizen"])
-        return self
-
     def drop_duplicates(self):
-        """Drops duplicate rows."""
+        """
+        Drops duplicate rows.
+        """
         self.df = self.df.drop_duplicates()
         return self
 
     def drop_columns(self):
-        """Drops unnecessary columns, 1 line per column allows easy visualisation and feature tuning"""
+        """
+        Drops unnecessary columns, 1 line per column allows easy visualisation and feature tuning.
+        """
         self.df.drop(["price_sqm"], axis=1, inplace=True)
         self.df.drop(["Unnamed: 0"], axis=1, inplace=True)
         self.df.drop(["Unnamed: 0.1"], axis=1, inplace=True)
@@ -43,21 +42,28 @@ class DataFrameCleaner:
         self.df.drop(["fireplace"], axis=1, inplace=True)
         self.df.drop(["furnished"], axis=1, inplace=True)
         self.df.drop(["postal_code"], axis=1, inplace=True)
-        self.df.drop(["terrace"], axis=1, inplace=True)
+        # self.df.drop(["terrace"], axis=1, inplace=True)
         self.df.drop(["garden"], axis=1, inplace=True)
         # self.df.drop(['to_restore'], axis=1, inplace=True)
         # self.df.drop(['to_renovate'], axis=1, inplace=True)
         # self.df.drop(['to_be_done_up'], axis=1, inplace=True)
         # self.df.drop(['kitchen'], axis=1, inplace=True)
         # self.df.drop(['is_house'], axis=1, inplace=True)
-        # self.df.drop(['is_apartment'], axis=1, inplace=True)
+        # elf.df.drop(['is_apartment'], axis=1, inplace=True)
         # self.df.drop(['just_renovated'], axis=1, inplace=True)
         # self.df.drop(['good'], axis=1, inplace=True)
         # self.df.drop(['facades'], axis=1, inplace=True)
-        print(f"DataFrame after cleaning: {self.df.shape}")
 
+        return self
+
+    def drop_na(self):
+        """
+        Drops rows with NaN values in specific columns.
+        """
+        self.df = self.df.dropna()
+        print(f"DataFrame after cleaning: {self.df.shape}")
         return self
 
     def clean(self):
         """Executes the entire cleaning process."""
-        return self.drop_na().drop_duplicates().drop_columns().df
+        return self.drop_duplicates().drop_columns().drop_na().df
