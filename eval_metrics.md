@@ -42,12 +42,16 @@ The following key performance metrics were computed on both training and test da
 #### Training
 - **MAE**: ~27,030.55  
 - **RMSE**: ~47,463.45  
-- **R²**: 0.98  
+- **R²**: 0.98
+- **MAPE**: 6.53 
+- **SMAPE**: 6.13 
 
 #### Test
 - **MAE**: ~67,508.12  
 - **RMSE**: ~110,693.10  
-- **R²**: 0.87  
+- **R²**: 0.87 
+- **MAPE**: 16.96 
+- **SMAPE**: 14.62   
 
 ---
 
@@ -57,11 +61,15 @@ The following key performance metrics were computed on both training and test da
 - **MAE**: ~4,047.36  
 - **RMSE**: ~26,677.42  
 - **R²**: 0.99  
+- **MAPE**: 0.71
+- **SMAPE**: 0.67 
 
 #### Test
 - **MAE**: ~66,726.84  
 - **RMSE**: ~139,522.98  
 - **R²**: 0.79  
+- **MAPE**: 18.00
+- **SMAPE**: 15.17 
 
 ---
 
